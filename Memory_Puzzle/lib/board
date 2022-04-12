@@ -2,18 +2,45 @@ require_relative "/card.rb"
 require_relative "/game.rb"
 
 class Board 
-
     def initialize(size)
         @grid = Array.new(size) { Array.new(size)}
-
+        @size = size
     end
 
     def populate
-        
+        numofpairs = (@size * @size) / 2
+        usedvals = []
+
+        while usedvals.length < numofpairs
+            randx = rand(0...@size)
+            randy = rand(0...@size)
+
+            if @grid[randx][randy] == nil
+                randx2 = rand(0...@size)
+                randy2 = rand(0...@size)
+                if @grid[randx2][randy2] == nil
+                    value = rand(1...@size * @size)
+                    if !usedvals.include?(value)
+                        @grid[randx][randy] = Card.new(value)
+                        @grid[randx2][randy2] = Card.new(value)
+                    end
+                end
+            end
+        end
     end
 
     def render
-
+        @grid.each do |row|
+            rowstring = ''
+            row.each do |card|
+                if card.flipped
+                    rowstring += Card.to_s
+                else
+                    rowstring += ' '
+                end
+            end
+            p rowstring
+        end
     end
     
     def won?
@@ -23,4 +50,5 @@ class Board
     def reveal 
 
     end
+
 end
