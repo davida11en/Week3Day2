@@ -91,6 +91,11 @@ class Board
         end
     end
 
+    def isflipped?(idx1, idx2)
+        testcard = @grid[idx1][idx2] 
+        testcard.flipped
+    end
+
     def [](position)
         @grid[position[0]][position[1]] 
      end

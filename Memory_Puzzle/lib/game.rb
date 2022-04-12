@@ -5,13 +5,32 @@ require_relative "computerplayer"
 
 class Game
 
-
     def initialize(size)
         @board = Board.new(size)
         @previous_guess = nil
-        @player = HumanPlayer.new(self)
+        @player = ComputerPlayer.new(self)
+        @previous_guess_pos = []
+    end
+    
+    def previous_guess
+        @previous_guess
     end
 
+    def previous_guess_pos
+        @previous_guess_pos
+    end
+
+    def board
+        @board
+    end
+
+    def size
+        @size
+    end
+
+    def player
+        @player
+    end
 
     def play
         until @board.won? 
@@ -27,10 +46,14 @@ class Game
         if check == 1
             p "That is already revealed"
         else
+            @player.receive_revealed_card(position, check)
             if @previous_guess == nil
                 @previous_guess = @board[position]
+                @previous_guess_pos = position
             else
                 if @previous_guess == @board[position]
+                    @player.receive_match(position, @previous_guess_pos)
+                    @previous_guess_pos = nil
                     @previous_guess = nil
                 else
                     p "This is incorrect"
@@ -46,6 +69,7 @@ class Game
 
     def print
         system("clear")
+        p @player.known_cards
         @board.render
     end
 
