@@ -2,5 +2,26 @@ require_relative "board.rb"
 require_relative "game.rb"
 
 class Card
+    
+    def initialize(face_value)
+        @face = face_value
+        @flipped = false
+    end
+
+    def hide 
+        @flipped = false if @flipped == true
+    end
+
+    def reveal
+        @flipped = true if @flipped == false
+    end
+
+    def to_s
+        @face.to_s
+    end
+
+    def ==(other_card) 
+        return self.to_s == other_card.to_s
+    end
 
 end
