@@ -3,4 +3,24 @@ require_relative "/game.rb"
 
 class Board 
 
+    def initialize(size)
+        @grid = Array.new(size) { Array.new(size)}
+
+    end
+
+    def populate
+        
+    end
+
+    def render
+
+    end
+    
+    def won?
+
+    end
+
+    def reveal 
+
+    end
 end
